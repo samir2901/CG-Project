@@ -38,6 +38,14 @@ def drawClock():
     glColor3f(1.0,0.0,0.0)
     midPointCircle(center, 200)
 
+    now = datetime.now()
+    hr = now.hour
+    minute = now.minute
+    sec = now.second
+    secAngle = lerp(sec,0,60,0,360)
+    minuteAngle = lerp(minute,0,60,0,360)
+    hourAngle = lerp(hr%12,0,12,0,360)
+
     #draw lines
     #seconds line
     glPushMatrix()
