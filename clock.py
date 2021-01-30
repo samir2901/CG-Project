@@ -2,8 +2,8 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from datetime import datetime
-from MidPointCircle import midPointCircle
-from BresenhamLine import BresenhamLine
+from cg_algo import mid_point_circle, bresenham_line
+
 
 def lerp(var, minVar, maxVar, minLimit, maxLimit):
     '''
@@ -16,59 +16,50 @@ def lerp(var, minVar, maxVar, minLimit, maxLimit):
     return value
 
 
-secAngle = 0
-minuteAngle = 0
-hourAngle = 0
-
-def clock(value):
-    global secAngle, minuteAngle
-    now = datetime.now()
-    hr = now.hour
-    minute = now.minute
-    sec = now.second
-    secAngle = lerp(sec,0,60,0,360)
-    minuteAngle = lerp(minute,0,60,0,360)
-    hourAngle = lerp(hr%12,0,12,0,360)
+def clock_timer(value):
     glutPostRedisplay()
-    glutTimerFunc(1000,clock,0)
+    glutTimerFunc(1000, clock_timer, 0)
 
-def drawClock():
-    center = (640//2,480//2)
-    #drawing circle
+
+def draw_clock(WIDTH, HEIGHT):
+    center = (WIDTH//2, HEIGHT//2)
+    # Drawing circle
     glColor3f(1.0,0.0,0.0)
-    midPointCircle(center, 200)
+    mid_point_circle(center, 200)
 
+    # Extract current time.
     now = datetime.now()
     hr = now.hour
     minute = now.minute
     sec = now.second
+
     secAngle = lerp(sec,0,60,0,360)
     minuteAngle = lerp(minute,0,60,0,360)
     hourAngle = lerp(hr%12,0,12,0,360)
 
-    #draw lines
-    #seconds line
+    # Drawing clock arms
+    # Seconds arm
     glPushMatrix()
     glTranslate(center[0],center[1],0)
     glRotate(-secAngle,0,0,1)
     glColor3f(1.0,0.0,1.0)
-    BresenhamLine((0,0),(0,190))
+    bresenham_line((0,0),(0,190))
     glPopMatrix()
 
 
-    #minutes line
+    # Minutes arm
     glPushMatrix()
     glTranslate(center[0],center[1],0)
     glRotate(-minuteAngle,0,0,1)
     glColor3f(1.0,1.0,1.0)
-    BresenhamLine((0,0),(0,170))
+    bresenham_line((0,0),(0,170))
     glPopMatrix()
 
 
-    #hour line
+    # Hour arm
     glPushMatrix()
     glTranslate(center[0],center[1],0)
     glRotate(-hourAngle,0,0,1)
     glColor3f(0.0,1.0,0.0)
-    BresenhamLine((0,0),(0,150))
+    bresenham_line((0,0),(0,150))
     glPopMatrix()
