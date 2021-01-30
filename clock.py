@@ -37,13 +37,23 @@ def draw_clock(WIDTH, HEIGHT):
     minuteAngle = lerp(minute,0,60,0,360)
     hourAngle = lerp(hr%12,0,12,0,360)
 
+    #beautifying
+    glPushMatrix()
+    glTranslate(center[0],center[1],0)
+    glColor3f(1,0.3,0.0)
+    bresenham_line((150,0),(200,0))
+    bresenham_line((-150,0),(-200,0))
+    bresenham_line((0,150),(0,200))
+    bresenham_line((0,-150),(0,-200))
+    glPopMatrix()
+
     # Drawing clock arms
     # Seconds arm
     glPushMatrix()
     glTranslate(center[0],center[1],0)
     glRotate(-secAngle,0,0,1)
     glColor3f(1.0,0.0,1.0)
-    bresenham_line((0,0),(0,190))
+    bresenham_line((0,0),(0,180))
     glPopMatrix()
 
 
@@ -52,7 +62,7 @@ def draw_clock(WIDTH, HEIGHT):
     glTranslate(center[0],center[1],0)
     glRotate(-minuteAngle,0,0,1)
     glColor3f(1.0,1.0,1.0)
-    bresenham_line((0,0),(0,170))
+    bresenham_line((0,0),(0,140))
     glPopMatrix()
 
 
@@ -61,5 +71,5 @@ def draw_clock(WIDTH, HEIGHT):
     glTranslate(center[0],center[1],0)
     glRotate(-hourAngle,0,0,1)
     glColor3f(0.0,1.0,0.0)
-    bresenham_line((0,0),(0,150))
+    bresenham_line((0,0),(0,100))
     glPopMatrix()

@@ -14,6 +14,7 @@ def init(width,height):
 
 def display():
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+    glPointSize(2.5)
     draw_clock(WIDTH, HEIGHT)
     glutSwapBuffers()
 
