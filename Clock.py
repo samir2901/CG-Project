@@ -10,42 +10,34 @@ def lerp(var, minVar, maxVar, minLimit, maxLimit):
     Linearly interpolates the value of var from minVar-maxVar to minLimit-maxLimit
     '''
     deltaVar = maxVar - minVar
-    deltaLimit = maxLimit - minLimit
+    deltaLimit = maxLimit - minLimit 
 
     value = float(var - minVar)/float(deltaVar) * float(deltaLimit) + minLimit
-    return value
-
+    return value   
+ 
 
 secAngle = 0
 minuteAngle = 0
 hourAngle = 0
 
 def clock(value):
-    global secAngle, minuteAngle
+    global secAngle, minuteAngle 
     now = datetime.now()
     hr = now.hour
     minute = now.minute
-    sec = now.second
+    sec = now.second    
     secAngle = lerp(sec,0,60,0,360)
-    minuteAngle = lerp(minute,0,60,0,360)
+    minuteAngle = lerp(minute,0,60,0,360)    
     hourAngle = lerp(hr%12,0,12,0,360)
     glutPostRedisplay()
     glutTimerFunc(1000,clock,0)
 
-def drawClock():
+def drawClock(): 
     center = (640//2,480//2)
     #drawing circle
     glColor3f(1.0,0.0,0.0)
     midPointCircle(center, 200)
-
-    now = datetime.now()
-    hr = now.hour
-    minute = now.minute
-    sec = now.second
-    secAngle = lerp(sec,0,60,0,360)
-    minuteAngle = lerp(minute,0,60,0,360)
-    hourAngle = lerp(hr%12,0,12,0,360)
-
+    
     #draw lines
     #seconds line
     glPushMatrix()
@@ -53,7 +45,7 @@ def drawClock():
     glRotate(-secAngle,0,0,1)
     glColor3f(1.0,0.0,1.0)
     BresenhamLine((0,0),(0,190))
-    glPopMatrix()
+    glPopMatrix()    
 
 
     #minutes line
@@ -71,4 +63,4 @@ def drawClock():
     glRotate(-hourAngle,0,0,1)
     glColor3f(0.0,1.0,0.0)
     BresenhamLine((0,0),(0,150))
-    glPopMatrix()
+    glPopMatrix()   

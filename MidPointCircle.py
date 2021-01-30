@@ -12,7 +12,7 @@ def drawPoints(xc, yc, x, y):
 
 def midPointCircle(center, radius):
     x = 0
-    y = radius
+    y = radius 
     p = 1 - radius
     glBegin(GL_POINTS)
     drawPoints(center[0],center[1],x,y)
@@ -26,4 +26,4 @@ def midPointCircle(center, radius):
         drawPoints(center[0],center[1],x,y)
     glEnd()
     glFlush()
-
+        
